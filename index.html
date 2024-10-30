@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счётчик кликов</title>
+    <style>
+        /* CSS стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #counter {
+            font-size: 48px;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Счётчик кликов</h1>
+        <div id="counter">0</div>
+        <button id="incrementButton">Увеличить</button>
+    </div>
+
+    <script>
+        // Инициализация счётчика
+        let count = 0;
+
+        // Обновляем отображение счётчика
+        function updateCounterDisplay() {
+            document.getElementById('counter').textContent = count;
+        }
+
+        // Обработчик нажатия кнопки
+        document.getElementById('incrementButton').addEventListener('click', function() {
+            count++;
+            updateCounterDisplay();
+        });
+
+        // Загружаем текущее значение счётчика при загрузке страницы (если нужно получать с сервера)
+        async function fetchCounter() {
+            try {
+                const response = await fetch('/api/counter');
+                const data = await response.json();
+                count = data.count;
+                updateCounterDisplay();
+            } catch (error) {
+                console.error("Ошибка при загрузке счётчика:", error);
+            }
+        }
+
+        // Если API не требуется, можно закомментировать строку ниже
+        // fetchCounter();
+    </script>
+</body>
+</html>
