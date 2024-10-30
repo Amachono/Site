@@ -1,5 +1,19 @@
 {
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/counter.js" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/counter.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/counter",
+      "dest": "/api/counter.js"
+    }
   ]
 }
